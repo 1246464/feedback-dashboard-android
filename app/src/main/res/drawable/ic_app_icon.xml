@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    
+    <!-- Background cinza claro -->
+    <path
+        android:fillColor="#F5F5F5"
+        android:pathData="M0,0h108v108h-108z"/>
+    
+    <!-- Lâmpada - preenchimento branco -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M54,24 C45,24 37,28 32,35 C28,41 26,48 26,55 C26,62 28,68 32,73 C35,77 40,80 46,81 L62,81 C68,80 73,77 76,73 C80,68 82,62 82,55 C82,48 80,41 76,35 C71,28 63,24 54,24 Z"/>
+    
+    <!-- Lâmpada - contorno roxo escuro grosso -->
+    <path
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="#3D2645"
+        android:strokeWidth="4.5"
+        android:pathData="M54,24 C45,24 37,28 32,35 C28,41 26,48 26,55 C26,62 28,68 32,73 C35,77 40,80 46,81 L62,81 C68,80 73,77 76,73 C80,68 82,62 82,55 C82,48 80,41 76,35 C71,28 63,24 54,24 Z"/>
+    
+    <!-- Base da lâmpada - parte arredondada -->
+    <path
+        android:fillColor="#3D2645"
+        android:pathData="M46,81 L62,81 L62,83 L46,83 Z"/>
+    
+    <!-- Rosca 1 -->
+    <path
+        android:fillColor="#3D2645"
+        android:pathData="M43,83 L65,83 C66,83 67,84 67,85 L67,87 C67,88 66,89 65,89 L43,89 C42,89 41,88 41,87 L41,85 C41,84 42,83 43,83 Z"/>
+    
+    <!-- Rosca 2 -->
+    <path
+        android:fillColor="#3D2645"
+        android:pathData="M43,89 L65,89 C66,89 67,90 67,91 L67,93 C67,94 66,95 65,95 L43,95 C42,95 41,94 41,93 L41,91 C41,90 42,89 43,89 Z"/>
+    
+    <!-- Rosca 3 -->
+    <path
+        android:fillColor="#3D2645"
+        android:pathData="M45,95 L63,95 C64,95 65,96 65,97 L65,98 C65,99 64,100 63,100 L45,100 C44,100 43,99 43,98 L43,97 C43,96 44,95 45,95 Z"/>
+    
+    <!-- Folha verde escuro (esquerda) -->
+    <path
+        android:fillColor="#2D5D3F"
+        android:pathData="M44,52 C42,50 40,48 40,45 C40,42 42,40 45,39 C48,38 51,39 53,42 C54,44 54,46 53,49 C52,52 50,54 48,56 C46,58 44,58 42,57 C41,56 40,55 40,53 C40,52 41,51 42,51 C43,50 44,50 45,51 C46,52 46,53 46,54 C46,55 45,56 44,56 C44,55 44,54 44,52 Z"/>
+    
+    <!-- Folha vermelha/coral (topo) -->
+    <path
+        android:fillColor="#D64545"
+        android:pathData="M54,35 C52,33 51,31 52,29 C53,27 55,26 58,27 C61,28 63,30 64,33 C65,36 64,39 62,42 C60,44 58,45 56,45 C54,45 52,44 51,42 C50,41 50,39 51,38 C52,37 53,37 54,38 C55,39 56,40 56,41 C56,42 55,43 54,43 C54,42 54,41 54,39 C54,37 54,36 54,35 Z"/>
+    
+    <!-- Folha roxa escura (direita) -->
+    <path
+        android:fillColor="#4A2D5C"
+        android:pathData="M62,48 C64,46 66,45 68,46 C70,47 71,49 70,52 C69,55 67,57 64,59 C62,60 59,61 57,60 C55,59 53,57 53,55 C53,53 54,51 56,50 C57,49 59,49 60,50 C61,51 62,52 62,54 C62,55 61,56 60,56 C60,55 60,54 61,53 C62,52 62,50 62,48 Z"/>
+</vector>

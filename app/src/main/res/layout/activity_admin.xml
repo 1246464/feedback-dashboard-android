@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ECEFF1">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Cabeçalho -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#FFFFFF"
+            android:elevation="4dp"
+            android:padding="16dp"
+            android:layout_marginBottom="16dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/btnVoltar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="38dp"
+                    android:layout_alignParentStart="true"
+                    android:backgroundTint="#607D8B"
+                    android:text="← Voltar"
+                    android:textSize="11sp"
+                    android:textColor="#FFFFFF" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="🛠️"
+                    android:textSize="32sp" />
+
+                <Button
+                    android:id="@+id/btnSair"
+                    android:layout_width="wrap_content"
+                    android:layout_height="38dp"
+                    android:layout_alignParentEnd="true"
+                    android:backgroundTint="#F44336"
+                    android:text="Sair"
+                    android:textSize="11sp"
+                    android:textColor="#FFFFFF" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Painel Administrativo"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="#212121"
+                android:gravity="center"
+                android:paddingTop="8dp" />
+        </LinearLayout>
+
+        <!-- Card Cardápio Atual -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#FFFFFF"
+            android:elevation="3dp"
+            android:padding="16dp"
+            android:layout_marginBottom="12dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="📋 Cardápio de Hoje"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="#1976D2"
+                android:layout_marginBottom="12dp"/>
+
+            <TextView android:id="@+id/txtPrincipalView" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="🍗 Prato: -" android:textSize="15sp" android:paddingBottom="6dp" android:textColor="#424242"/>
+            <TextView android:id="@+id/txtGuarnicaoView" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="🍖 Guarnição: -" android:textSize="15sp" android:paddingBottom="6dp" android:textColor="#424242"/>
+            <TextView android:id="@+id/txtAcompanhamentoView" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="🍚 Acompanhamento: -" android:textSize="15sp" android:paddingBottom="6dp" android:textColor="#424242"/>
+            <TextView android:id="@+id/txtSaladaView" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="🥗 Salada: -" android:textSize="15sp" android:paddingBottom="6dp" android:textColor="#424242"/>
+            <TextView android:id="@+id/txtSobremesaView" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="🍮 Sobremesa: -" android:textSize="15sp" android:textColor="#424242"/>
+        </LinearLayout>
+
+        <!-- Card Estatísticas do Dia -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#FFFFFF"
+            android:elevation="3dp"
+            android:padding="16dp"
+            android:layout_marginBottom="12dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="📊 Pedidos do Dia"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="#388E3C"
+                android:layout_marginBottom="12dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <!-- Card Prato -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:background="#E3F2FD"
+                    android:gravity="center"
+                    android:layout_marginEnd="6dp"
+                    android:elevation="2dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="🍗"
+                        android:textSize="32sp"/>
+
+                    <TextView
+                        android:id="@+id/txtContagemPrato"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        android:textColor="#1976D2"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Pratos"
+                        android:textSize="12sp"
+                        android:textColor="#1976D2"/>
+                </LinearLayout>
+
+                <!-- Card Ovos -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:background="#FFF3E0"
+                    android:gravity="center"
+                    android:layout_marginStart="6dp"
+                    android:elevation="2dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="🍳"
+                        android:textSize="32sp"/>
+
+                    <TextView
+                        android:id="@+id/txtContagemOvo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        android:textColor="#F57C00"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ovos"
+                        android:textSize="12sp"
+                        android:textColor="#F57C00"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Total -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="#C8E6C9"
+                android:padding="12dp"
+                android:layout_marginTop="12dp"
+                android:gravity="center"
+                android:elevation="2dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TOTAL: "
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="#2E7D32"/>
+
+                <TextView
+                    android:id="@+id/txtTotalPedidos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0 pedidos"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="#1B5E20"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Card Gerenciar Cardápio -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#FFFFFF"
+            android:elevation="3dp"
+            android:padding="16dp"
+            android:layout_marginBottom="12dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="✏️ Atualizar Cardápio"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#E65100"
+                android:paddingBottom="12dp"/>
+
+            <EditText android:id="@+id/edtPrincipal" android:layout_width="match_parent" android:layout_height="48dp" android:hint="🍗 Prato principal" android:textSize="14sp" android:background="@android:drawable/edit_text" android:paddingStart="12dp" android:paddingEnd="12dp" android:layout_marginBottom="8dp"/>
+            <EditText android:id="@+id/edtGuarnicao" android:layout_width="match_parent" android:layout_height="48dp" android:hint="🍖 Guarnição" android:textSize="14sp" android:background="@android:drawable/edit_text" android:paddingStart="12dp" android:paddingEnd="12dp" android:layout_marginBottom="8dp"/>
+            <EditText android:id="@+id/edtAcompanhamento" android:layout_width="match_parent" android:layout_height="48dp" android:hint="🍚 Acompanhamento" android:textSize="14sp" android:background="@android:drawable/edit_text" android:paddingStart="12dp" android:paddingEnd="12dp" android:layout_marginBottom="8dp"/>
+            <EditText android:id="@+id/edtSalada" android:layout_width="match_parent" android:layout_height="48dp" android:hint="🥗 Salada" android:textSize="14sp" android:background="@android:drawable/edit_text" android:paddingStart="12dp" android:paddingEnd="12dp" android:layout_marginBottom="8dp"/>
+            <EditText android:id="@+id/edtSobremesa" android:layout_width="match_parent" android:layout_height="48dp" android:hint="🍮 Sobremesa" android:textSize="14sp" android:background="@android:drawable/edit_text" android:paddingStart="12dp" android:paddingEnd="12dp" android:layout_marginBottom="12dp"/>
+
+            <Button
+                android:id="@+id/btnSalvar"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="✓ PUBLICAR NOVO CARDÁPIO"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:backgroundTint="#4CAF50"
+                android:textColor="#FFFFFF"
+                android:elevation="2dp"/>
+
+            <Button
+                android:id="@+id/btnLimpar"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="🗑️ Zerar Pedidos do Dia"
+                android:layout_marginTop="8dp"
+                android:backgroundTint="#F44336"
+                android:textColor="#FFFFFF"
+                android:textSize="13sp"/>
+        </LinearLayout>
+
+        <!-- Card Ferramentas Admin -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#FFFFFF"
+            android:elevation="3dp"
+            android:padding="16dp"
+            android:layout_marginBottom="12dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="🔧 Ferramentas de Gestão"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#6A1B9A"
+                android:paddingBottom="12dp"/>
+
+            <Button
+                android:id="@+id/btnIrParaEstatisticas"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="📊 Estatísticas de Avaliação"
+                android:backgroundTint="#673AB7"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:elevation="2dp"
+                android:layout_marginBottom="10dp"/>
+
+            <Button
+                android:id="@+id/btnVerComentarios"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="💬 Comentários dos Funcionários"
+                android:backgroundTint="#FF9800"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:elevation="2dp"
+                android:layout_marginBottom="10dp"/>
+
+            <Button
+                android:id="@+id/btnCardapioSemanal"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="📅 Planejamento Semanal"
+                android:backgroundTint="#009688"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:elevation="2dp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@android:drawable/dialog_holo_light_frame"
+    android:padding="12dp"
+    android:layout_marginBottom="16dp">
+
+    <TextView
+        android:id="@+id/txtDiaSemana"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Segunda-feira"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="#1976D2"/>
+
+    <TextView
+        android:id="@+id/txtDataCardapio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00/00/0000"
+        android:textSize="14sp"
+        android:textColor="#757575"
+        android:paddingBottom="8dp"/>
+
+    <EditText
+        android:id="@+id/edtPrincipal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="🍗 Prato principal"
+        android:textSize="14sp"
+        android:inputType="text"/>
+
+    <EditText
+        android:id="@+id/edtGuarnicao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="🍖 Guarnição"
+        android:textSize="14sp"
+        android:inputType="text"/>
+
+    <EditText
+        android:id="@+id/edtAcompanhamento"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="🍚 Acompanhamento"
+        android:textSize="14sp"
+        android:inputType="text"/>
+
+    <EditText
+        android:id="@+id/edtSalada"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="🥗 Salada"
+        android:textSize="14sp"
+        android:inputType="text"/>
+
+    <EditText
+        android:id="@+id/edtSobremesa"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="🍮 Sobremesa"
+        android:textSize="14sp"
+        android:inputType="text"/>
+
+</LinearLayout>

@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Insights Cardápio</string>
+    <string-array name="tipos_usuario"><item>Funcionário</item><item>Administrador</item></string-array>
+    <string name="prato_principal">🍗 Prato Principal: %1$s</string>
+    <string name="guarnicao">🍖 Guarnição: %1$s</string>
+    <string name="acompanhamento">🍚 Acomp: %1$s</string>
+    <string name="salada">🥗 Salada: %1$s</string>
+    <string name="sobremesa">🍮 Sobremesa: %1$s</string>
+    <string name="escolha_registrada">Escolha registrada!</string>
+    <string name="selecione_uma_opcao">Selecione uma opção</string>
+    <string name="obrigado_pelo_feedback">Obrigado pelo feedback! 🙏</string>
+    <string name="erro_usuario_nao_logado">Erro: usuário não logado.</string>
+</resources>
