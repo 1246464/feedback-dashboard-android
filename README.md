@@ -19,9 +19,9 @@ Sistema completo de gerenciamento que permite coletar avaliações, visualizar e
 ## 📸 Screenshots
 
 <div align="center">
-  <img src="screenshots/painel_admin.png" width="250" alt="Painel Administrativo">
-  <img src="screenshots/atualizar_cardapio.png" width="250" alt="Atualização de Cardápio">
-  <img src="screenshots/cardapio_dia.png" width="250" alt="Cardápio do Dia">
+  <img src="screenshots/painel_admin.jpg" width="250" alt="Painel Administrativo">
+  <img src="screenshots/atualizar_cardapio.jpg" width="250" alt="Atualização de Cardápio">
+  <img src="screenshots/cardapio_dia.jpg" width="250" alt="Cardápio do Dia">
 </div>
 
 ## 📋 Pré-requisitos
