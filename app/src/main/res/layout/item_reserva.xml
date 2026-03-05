@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@android:color/white"
+    android:padding="16dp"
+    android:layout_marginBottom="12dp"
+    android:elevation="2dp">
+
+    <TextView
+        android:id="@+id/txtNomeReserva"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="👤 Nome do Usuário"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="#1976D2" />
+
+    <TextView
+        android:id="@+id/txtEscolhaReserva"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="🍽️ Escolha: Ovo"
+        android:textSize="16sp"
+        android:layout_marginTop="8dp"
+        android:textColor="#333333"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txtSetorReserva"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="🏢 Setor: Produção"
+        android:textSize="14sp"
+        android:layout_marginTop="4dp"
+        android:textColor="#666666" />
+
+    <TextView
+        android:id="@+id/txtStatusReserva"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="📌 Status: ATIVA"
+        android:textSize="14sp"
+        android:layout_marginTop="4dp"
+        android:textStyle="bold"
+        android:textColor="#4CAF50" />
+
+    <TextView
+        android:id="@+id/txtObservacaoReserva"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="💬 Observação: Sem cebola"
+        android:textSize="13sp"
+        android:layout_marginTop="8dp"
+        android:padding="8dp"
+        android:background="#FFF3E0"
+        android:textColor="#333333"
+        android:visibility="gone" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#E0E0E0"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnMarcarUtilizada"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="✓ Utilizada"
+            android:textSize="12sp"
+            android:backgroundTint="#4CAF50"
+            android:layout_marginEnd="4dp" />
+
+        <Button
+            android:id="@+id/btnCancelarReserva"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="✗ Cancelar"
+            android:textSize="12sp"
+            android:backgroundTint="#F44336"
+            android:layout_marginStart="4dp" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@android:color/white"
+    android:padding="12dp"
+    android:layout_marginBottom="8dp"
+    android:elevation="1dp">
+
+    <CheckBox
+        android:id="@+id/checkItemCompra"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ingrediente"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="#333333" />
+
+    <TextView
+        android:id="@+id/txtNomeItemCompra"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ingrediente"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_marginStart="32dp"
+        android:textColor="#333333"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/txtDetalhesItemCompra"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Usado em 3 dias (Seg, Ter, Qua)"
+        android:textSize="12sp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="2dp"
+        android:textColor="#666666" />
+
+</LinearLayout>

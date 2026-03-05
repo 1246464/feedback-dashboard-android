@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="20dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Cabeçalho -->
+        <TextView
+            android:id="@+id/textDetalhesUsuario"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="De: João Silva"
+            android:textSize="14sp"
+            android:textColor="?attr/colorPrimary"/>
+
+        <TextView
+            android:id="@+id/textDetalhesTurnos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Turno MANHÃ → TARDE"
+            android:textSize="14sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/textDetalhesHora"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="01/03/2024 14:30"
+            android:textSize="12sp"
+            android:textColor="?attr/colorOnSurfaceVariant"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginVertical="12dp"
+            android:background="?attr/colorOutline"/>
+
+        <!-- Mensagem Principal -->
+        <TextView
+            android:id="@+id/textDetalhesMensagem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mensagem principal aqui"
+            android:textSize="16sp"
+            android:textColor="?attr/colorOnSurface"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginVertical="12dp"
+            android:background="?attr/colorOutline"/>
+
+        <!-- Tarefas Concluídas -->
+        <TextView
+            android:id="@+id/textDetalhesTarefasConcluidas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="✅ Tarefas Concluídas:\nPreparar arroz e feijão"
+            android:textSize="14sp"
+            android:visibility="gone"/>
+
+        <!-- Tarefas Pendentes -->
+        <TextView
+            android:id="@+id/textDetalhesTarefasPendentes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="⏳ Tarefas Pendentes:\nCortar salada"
+            android:textSize="14sp"
+            android:visibility="gone"/>
+
+        <!-- Problemas -->
+        <TextView
+            android:id="@+id/textDetalhesProblemas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="⚠️ Problemas:\nFaltou tomate"
+            android:textSize="14sp"
+            android:textColor="@android:color/holo_orange_dark"
+            android:visibility="gone"/>
+
+        <!-- Mudanças -->
+        <TextView
+            android:id="@+id/textDetalhesMudancas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="🔄 Mudanças:\nCardápio foi alterado"
+            android:textSize="14sp"
+            android:textColor="@android:color/holo_red_dark"
+            android:visibility="gone"/>
+
+    </LinearLayout>
+
+</ScrollView>

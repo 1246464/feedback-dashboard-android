@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- Header -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FF5722"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:elevation="4dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="📦 Gestão de Ingredientes"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"/>
+
+            <TextView
+                android:id="@+id/textDataSelecionadaIng"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Segunda, 02/03/2026"
+                android:textSize="14sp"
+                android:textColor="#FFFFFF"
+                android:layout_marginTop="4dp"/>
+
+            <TextView
+                android:id="@+id/textStatusGeralIng"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="✓ Todos os ingredientes disponíveis"
+                android:textSize="12sp"
+                android:textColor="#FFFFFF"
+                android:layout_marginTop="4dp"/>
+        </LinearLayout>
+
+        <!-- Navegação de Data -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="8dp"
+            android:gravity="center"
+            android:background="#FFFFFF"
+            android:elevation="2dp">
+
+            <Button
+                android:id="@+id/btnDiaAnteriorIng"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="◀ Anterior"
+                android:textSize="12sp"
+                style="?attr/materialButtonOutlinedStyle"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"/>
+
+            <Button
+                android:id="@+id/btnProximoDiaIng"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="Próximo ▶"
+                android:textSize="12sp"
+                style="?attr/materialButtonOutlinedStyle"/>
+        </LinearLayout>
+
+        <!-- Filtros -->
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:paddingVertical="8dp"
+            android:elevation="2dp">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroupFiltrosIng"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="16dp"
+                app:singleSelection="true"
+                app:checkedChip="@id/chipTodosIng">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipTodosIng"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Todos"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"/>
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipDisponiveisIng"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="✓ Disponíveis"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"/>
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipFaltandoIng"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="✗ Faltando"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"/>
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipParciaisIng"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="⚠ Parciais"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"/>
+            </com.google.android.material.chip.ChipGroup>
+        </HorizontalScrollView>
+
+        <!-- Lista de Ingredientes -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewIngredientes"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingTop="8dp"
+            android:paddingBottom="80dp"
+            android:clipToPadding="false"/>
+
+        <!-- Botão Voltar -->
+        <Button
+            android:id="@+id/btnVoltarIng"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="16dp"
+            android:text="← Voltar"
+            android:backgroundTint="#757575"
+            android:textColor="#FFFFFF"/>
+    </LinearLayout>
+
+    <!-- FAB para novo ingrediente -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabNovoIngrediente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:src="@android:drawable/ic_input_add"
+        app:tint="#FFFFFF"
+        app:backgroundTint="#FF5722"/>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

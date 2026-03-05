@@ -70,13 +70,9 @@ public class LoginActivity extends AppCompatActivity {
 
                 userRef.get().addOnSuccessListener(snapshot -> {
                     if (snapshot.exists()) {
-                        String tipo = snapshot.child("tipo").getValue(String.class);
-                        // Verifica "admin" como você configura manualmente no Firebase
-                        if ("admin".equals(tipo)) {
-                            startActivity(new Intent(this, AdminActivity.class));
-                        } else {
-                            startActivity(new Intent(this, MainActivity.class));
-                        }
+                        // Agora usa RedirecionadorActivity para direcionar baseado no cargo
+                        Intent intent = new Intent(this, RedirecionadorActivity.class);
+                        startActivity(intent);
                         finish();
                     } else {
                         // SE CAIR AQUI: O login deu certo, mas o usuário não foi criado no Database

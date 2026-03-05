@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#F5F5F5">
+
+    <!-- Cabeçalho -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@android:color/white"
+        android:padding="16dp"
+        android:elevation="2dp"
+        android:layout_marginBottom="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="📋 Reservas do Dia"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="#1976D2" />
+
+        <TextView
+            android:id="@+id/txtDataReservas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reservas do dia: 01/01/2024"
+            android:textSize="14sp"
+            android:layout_marginTop="4dp"
+            android:textColor="#666666" />
+
+        <TextView
+            android:id="@+id/txtTotalReservas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0 reservas"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp"
+            android:textColor="#4CAF50" />
+
+        <TextView
+            android:id="@+id/txtResumoEscolhas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="14sp"
+            android:layout_marginTop="8dp"
+            android:padding="8dp"
+            android:background="#E8F5E9"
+            android:textColor="#333333" />
+    </LinearLayout>
+
+    <!-- Lista de reservas -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lista de Reservas"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="#333333"
+        android:layout_marginBottom="8dp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:id="@+id/containerReservas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
+
+    <!-- Botão Voltar -->
+    <Button
+        android:id="@+id/btnVoltarReservas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="← Voltar"
+        android:textSize="16sp"
+        android:backgroundTint="#607D8B"
+        android:layout_marginTop="8dp" />
+
+</LinearLayout>

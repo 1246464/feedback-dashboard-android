@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Cabeçalho -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@android:color/white"
+            android:padding="16dp"
+            android:elevation="4dp"
+            android:layout_marginBottom="16dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/btnVoltarCopeira"
+                    android:layout_width="wrap_content"
+                    android:layout_height="38dp"
+                    android:layout_alignParentStart="true"
+                    android:backgroundTint="#607D8B"
+                    android:text="← Voltar"
+                    android:textSize="11sp"
+                    android:textColor="#FFFFFF" />
+
+                <Button
+                    android:id="@+id/btnSairCopeira"
+                    android:layout_width="wrap_content"
+                    android:layout_height="38dp"
+                    android:layout_alignParentEnd="true"
+                    android:backgroundTint="#F44336"
+                    android:text="Sair"
+                    android:textSize="11sp"
+                    android:textColor="#FFFFFF" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="☕ Equipe de Copeiragem"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:textColor="#D32F2F"
+                android:gravity="center"
+                android:paddingTop="12dp" />
+
+            <TextView
+                android:id="@+id/txtBoasVindasCopeira"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bem-vindo!"
+                android:textSize="18sp"
+                android:textColor="#333333"
+                android:gravity="center"
+                android:paddingTop="8dp" />
+
+            <TextView
+                android:id="@+id/txtCargoCopeira"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Cargo: Copeira"
+                android:textSize="14sp"
+                android:textColor="#666666"
+                android:gravity="center"
+                android:paddingTop="4dp" />
+
+            <TextView
+                android:id="@+id/txtHorarioCopeira"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Horário: 10h-22h"
+                android:textSize="14sp"
+                android:textColor="#666666"
+                android:gravity="center"
+                android:paddingTop="2dp" />
+        </LinearLayout>
+
+        <!-- Informações Rápidas -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="📊 Suas Responsabilidades"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#333333"
+            android:layout_marginBottom="12dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@android:color/white"
+            android:padding="16dp"
+            android:elevation="2dp"
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="✓ Servir refeições aos colaboradores"
+                android:textSize="14sp"
+                android:textColor="#333333"
+                android:paddingBottom="4dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="✓ Consultar reservas do dia"
+                android:textSize="14sp"
+                android:textColor="#333333"
+                android:paddingBottom="4dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="✓ Verificar cardápio e opções"
+                android:textSize="14sp"
+                android:textColor="#333333"
+                android:paddingBottom="4dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="✓ Acompanhar planejamento semanal"
+                android:textSize="14sp"
+                android:textColor="#333333" />
+        </LinearLayout>
+
+        <!-- Ações Disponíveis -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="⚡ Ações Rápidas"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#333333"
+            android:layout_marginBottom="12dp" />
+
+        <LinearLayout
+            android:id="@+id/containerAcoesCopeira"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+    </LinearLayout>
+</ScrollView>

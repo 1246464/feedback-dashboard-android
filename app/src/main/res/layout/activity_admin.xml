@@ -312,6 +312,78 @@
                 android:textColor="#FFFFFF"
                 android:textStyle="bold"
                 android:textSize="15sp"
+                android:elevation="2dp"
+                android:layout_marginBottom="10dp"/>
+
+            <Button
+                android:id="@+id/btnGestaoPreparo"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="🔪 Gestão de Pré-Preparo"
+                android:backgroundTint="#FF5722"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:elevation="2dp"
+                android:layout_marginBottom="10dp"/>
+
+            <Button
+                android:id="@+id/btnPassagemTurno"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="📋 Passagem de Turno"
+                android:backgroundTint="#673AB7"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:elevation="2dp"
+                android:layout_marginBottom="10dp"/>
+
+            <Button
+                android:id="@+id/btnGestaoIngredientes"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="📦 Gestão de Ingredientes"
+                android:backgroundTint="#FF5722"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:elevation="2dp"
+                android:layout_marginBottom="10dp"/>
+
+            <Button
+                android:id="@+id/btnDashboardPreparo"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="📊 Dashboard de Pré-Preparo"
+                android:backgroundTint="#1976D2"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:elevation="2dp"
+                android:layout_marginBottom="10dp"/>
+
+            <Button
+                android:id="@+id/btnListaReservas"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="🍽️ Reservas do Dia"
+                android:backgroundTint="#4CAF50"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:elevation="2dp"
+                android:layout_marginBottom="10dp"/>
+
+            <Button
+                android:id="@+id/btnGerenciarUsuarios"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="👥 Gerenciar Funcionários"
+                android:backgroundTint="#E91E63"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:textSize="15sp"
                 android:elevation="2dp"/>
         </LinearLayout>
 

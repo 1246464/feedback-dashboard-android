@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private ScrollView contentScrollView;
     private TextView txtMensagemVoto;
-    private Button btnConfirmarEscolha, btnVerEstatisticas, btnEnviarAvaliacao, btnSugestoes;
+    private Button btnConfirmarEscolha, btnVerEstatisticas, btnEnviarAvaliacao, btnSugestoes, btnReservarPrato;
     private RadioGroup radioGrupoEscolha, radioGrupoAvaliacao;
     private EditText edtComentario;
     private LinearLayout cardapioContainer;
@@ -83,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
         btnVerEstatisticas = findViewById(R.id.btnVerEstatisticas);
         btnEnviarAvaliacao = findViewById(R.id.btnEnviarAvaliacao);
         btnSugestoes = findViewById(R.id.btnSugestoes);
+        btnReservarPrato = findViewById(R.id.btnReservarPrato);
         radioGrupoEscolha = findViewById(R.id.radioGrupoEscolha);
         radioGrupoAvaliacao = findViewById(R.id.radioGrupoAvaliacao);
         edtComentario = findViewById(R.id.edtComentario);
@@ -304,6 +305,8 @@ public class MainActivity extends AppCompatActivity {
         btnVerEstatisticas.setOnClickListener(v -> startActivity(new Intent(this, EstatisticasActivity.class)));
 
         btnSugestoes.setOnClickListener(v -> startActivity(new Intent(this, SugestoesActivity.class)));
+
+        btnReservarPrato.setOnClickListener(v -> startActivity(new Intent(this, ReservaActivity.class)));
 
         findViewById(R.id.btnSair).setOnClickListener(v -> {
             FirebaseAuth.getInstance().signOut();

@@ -2,7 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.visualizadorapp">
 
+    <!-- Permissões -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" 
+        android:maxSdkVersion="28" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name=".MyApplication"
@@ -11,30 +18,200 @@
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.VisualizadorApp">
+        android:theme="@style/Theme.VisualizadorApp"
+        android:usesCleartextTraffic="true">
 
+        <!-- Activity Principal (Login) -->
         <activity
             android:name=".LoginActivity"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
+        <!-- Activities Principais -->
         <activity
             android:name=".AdminActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:label="Painel Administrativo" />
 
         <activity
             android:name=".MainActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:label="Cardápio" />
 
-        <activity android:name=".CadastroActivity" android:exported="false" />
-        <activity android:name=".EstatisticasActivity" android:exported="false" />
-        <activity android:name=".ComentariosActivity" android:exported="false" />
-        <activity android:name=".CardapioSemanalActivity" android:exported="false" />
-        <activity android:name=".SugestoesActivity" android:exported="false" />
+        <!-- Activities de Cadastro e Autenticação -->
+        <activity 
+            android:name=".CadastroActivity" 
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:label="Cadastro" />
+
+        <!-- Activities de Funcionalidades -->
+        <activity 
+            android:name=".EstatisticasActivity" 
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:label="Estatísticas" />
+
+        <activity 
+            android:name=".ComentariosActivity" 
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:label="Comentários" />
+
+        <activity 
+            android:name=".CardapioSemanalActivity" 
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:label="Cardápio Semanal" />
+
+        <activity 
+            android:name=".SugestoesActivity" 
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:label="Sugestões" />
+
+        <!-- Novas Activities -->
+        <activity 
+            android:name=".ConfiguracoesActivity" 
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:label="Configurações" />
+
+        <activity 
+            android:name=".ReservaActivity" 
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:label="Reservar Prato" />
+
+        <activity 
+            android:name=".HistoricoActivity" 
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:label="Histórico" />
+
+        <!-- Activities de Gestão de Preparo -->
+        <activity 
+            android:name=".GestaoPreparoActivity" 
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:label="Gestão de Pré-Preparo" />
+
+        <activity 
+            android:name=".PassagemTurnoActivity" 
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:label="Passagem de Turno" />
+
+        <activity 
+            android:name=".GestaoIngredientesActivity" 
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:label="Gestão de Ingredientes" />
+
+        <activity 
+            android:name=".DashboardPreparoActivity" 
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:label="Dashboard de Pré-Preparo" />
+
+        <activity 
+            android:name=".HistoricoMudancasActivity" 
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:label="Histórico de Mudanças" />
+
+        <activity 
+            android:name=".ListaComprasActivity" 
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:label="Lista de Compras Semanal" />
+
+        <activity 
+            android:name=".VisaoSemanalActivity" 
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:label="Visão Consolidada da Semana" />
+
+        <activity 
+            android:name=".ListaReservasActivity" 
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:label="Reservas do Dia" />
+
+        <!-- Sistema de Dashboards por Cargo -->
+        <activity 
+            android:name=".RedirecionadorActivity" 
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:label="Carregando..." />
+
+        <activity 
+            android:name=".DashboardTecnicaActivity" 
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:label="Dashboard Técnica" />
+
+        <activity 
+            android:name=".DashboardLiderActivity" 
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:label="Dashboard Líder" />
+
+        <activity 
+            android:name=".DashboardCozinhaActivity" 
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:label="Dashboard Cozinha" />
+
+        <activity 
+            android:name=".DashboardEstoqueActivity" 
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:label="Dashboard Estoque" />
+
+        <activity 
+            android:name=".DashboardCopeiraActivity" 
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:label="Dashboard Copeiragem" />
+
+        <activity 
+            android:name=".GerenciarUsuariosActivity" 
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:label="Gerenciar Funcionários" />
+
+        <!-- Firebase Cloud Messaging Service -->
+        <service
+            android:name=".service.MyFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <!-- Firebase Default Message Channel -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="cardapio_notifications" />
+
+        <!-- FileProvider para compartilhar arquivos -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
 
     </application>
 

@@ -45,12 +45,54 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"/>
 
+        <!-- Botões de Ação -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp">
+
+            <Button
+                android:id="@+id/btnGerarTarefasProximos3Dias"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="⚡ Gerar Tarefas (3 dias)"
+                android:textSize="12sp"
+                android:backgroundTint="#FF9800"
+                android:textColor="#FFFFFF"
+                android:layout_marginEnd="4dp"
+                android:padding="12dp"/>
+
+            <Button
+                android:id="@+id/btnListaCompras"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="🛒 Lista Compras"
+                android:textSize="12sp"
+                android:backgroundTint="#2196F3"
+                android:textColor="#FFFFFF"
+                android:layout_marginStart="4dp"
+                android:padding="12dp"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnVisaoConsolidada"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="📊 Visão Consolidada da Semana"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="#9C27B0"
+            android:textColor="#FFFFFF"
+            android:padding="12dp"/>
+
         <Button
             android:id="@+id/btnSalvarSemana"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="💾 Salvar Cardápios da Semana"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:backgroundTint="#4CAF50"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
