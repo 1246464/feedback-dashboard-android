@@ -37,6 +37,11 @@
     <color name="rating_red">#FFF44336</color>
     <color name="rating_green">#FF4CAF50</color>
     
+    <!-- Teal Colors -->
+    <color name="teal_700">#FF00897B</color>
+    <color name="light_blue_background">#FFE0F2F1</color>
+    <color name="light_gray">#FFF5F5F5</color>
+    
     <!-- Transparent -->
     <color name="transparent">#00000000</color>
 </resources>

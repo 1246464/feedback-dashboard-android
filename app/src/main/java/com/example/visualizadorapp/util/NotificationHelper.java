@@ -150,6 +150,32 @@ public class NotificationHelper {
     }
     
     /**
+     * Envia notificação sobre nova reserva (para cozinheiro/copeiro)
+     */
+    public static void notificarNovaReserva(Context context, String nomeUsuario, String turno, String prato) {
+        Intent intent = new Intent(context, MainActivity.class);
+        enviarNotificacao(context, 
+            "🍽️ Nova Reserva - " + turno, 
+            nomeUsuario + " reservou: " + prato, 
+            intent,
+            CHANNEL_ID_PREPARO,
+            NotificationCompat.PRIORITY_HIGH);
+    }
+
+    /**
+     * Envia notificação sobre novo cardápio publicado (para todos os funcionários)
+     */
+    public static void notificarNovoCardapio(Context context, String mensagem) {
+        Intent intent = new Intent(context, MainActivity.class);
+        enviarNotificacao(context, 
+            "📋 Novo Cardápio Disponível", 
+            mensagem, 
+            intent,
+            CHANNEL_ID_DEFAULT,
+            NotificationCompat.PRIORITY_DEFAULT);
+    }
+
+    /**
      * Envia notificação genérica
      */
     public static void enviarNotificacao(

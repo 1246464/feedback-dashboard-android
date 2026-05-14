@@ -4,11 +4,15 @@ import android.app.Application;
 import com.google.firebase.database.FirebaseDatabase;
 import com.example.visualizadorapp.utils.ThemeManager;
 import com.example.visualizadorapp.utils.AppStartupOptimizer;
+import com.example.visualizadorapp.util.NotificationHelper;
 
 public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        
+        // ✅ CRIAR CANAIS DE NOTIFICAÇÃO (NECESSÁRIO PARA MOSTRAR NOTIFICAÇÕES)
+        NotificationHelper.createNotificationChannels(this);
         
         // Iniciar monitor de performance
         AppStartupOptimizer.StartupMonitor.start();

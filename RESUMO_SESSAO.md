@@ -1,4 +1,4 @@
-# 📝 RESUMO DA SESSÃO - Sistema de Gestão de Funcionários
+olã# 📝 RESUMO DA SESSÃO - Sistema de Gestão de Funcionários
 
 **Data:** 04-05/03/2026  
 **Versão Implementada:** 2.0

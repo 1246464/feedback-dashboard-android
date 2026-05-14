@@ -5,10 +5,16 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
+import com.example.visualizadorapp.model.CardapioTurno;
+import com.example.visualizadorapp.repository.CardapioTurnoRepository;
+import com.example.visualizadorapp.repository.FuncionarioRepository;
+import com.example.visualizadorapp.viewmodel.CardapiosViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -28,6 +34,7 @@ public class DashboardEstoqueActivity extends AppCompatActivity {
     private TextView txtBoasVindas;
     private LinearLayout containerAcoes;
     private Button btnSair, btnVoltar;
+    private CardapiosViewModel cardapiosViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +45,7 @@ public class DashboardEstoqueActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance("https://insights-cardapio-default-rtdb.firebaseio.com/").getReference();
 
         inicializarComponentes();
+        inicializarViewModel();
         carregarDadosUsuario();
     }
 
@@ -57,8 +65,17 @@ public class DashboardEstoqueActivity extends AppCompatActivity {
         configurarBotoes();
     }
 
+    private void inicializarViewModel() {
+        FuncionarioRepository funcionarioRepository = new FuncionarioRepository(getApplication());
+        CardapioTurnoRepository cardapioRepository = new CardapioTurnoRepository(getApplication());
+        
+        cardapiosViewModel = new ViewModelProvider(this, new CardapiosViewModelFactory(
+                funcionarioRepository, cardapioRepository))
+                .get(CardapiosViewModel.class);
+    }
+
     private void configurarBotoes() {
-        adicionarBotao("📋 Ver Cardápio", android.R.color.holo_blue_dark, MainActivity.class);
+        adicionarBotao("📋 Ver Cardápio", android.R.color.holo_blue_dark, () -> exibirCardapioFiltrado());
         adicionarBotao("📦 Gestão de Ingredientes", android.R.color.holo_orange_dark, GestaoIngredientesActivity.class);
         adicionarBotao("🛒 Lista de Compras Semanal", android.R.color.holo_green_dark, ListaComprasActivity.class);
         adicionarBotao("📊 Visão Semanal", android.R.color.holo_purple, VisaoSemanalActivity.class);
@@ -70,6 +87,25 @@ public class DashboardEstoqueActivity extends AppCompatActivity {
         btn.setBackgroundTintList(getColorStateList(cor));
         btn.setTextColor(getColor(android.R.color.white));
         btn.setOnClickListener(v -> startActivity(new Intent(this, activityClass)));
+        
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            dpToPx(60)
+        );
+        params.setMargins(0, 0, 0, dpToPx(12));
+        btn.setLayoutParams(params);
+        btn.setTextSize(16);
+        btn.setAllCaps(false);
+        
+        containerAcoes.addView(btn);
+    }
+
+    private void adicionarBotao(String texto, int cor, Runnable runnable) {
+        Button btn = new Button(this);
+        btn.setText(texto);
+        btn.setBackgroundTintList(getColorStateList(cor));
+        btn.setTextColor(getColor(android.R.color.white));
+        btn.setOnClickListener(v -> runnable.run());
         
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT,
@@ -101,6 +137,43 @@ public class DashboardEstoqueActivity extends AppCompatActivity {
                 public void onCancelled(@NonNull DatabaseError error) {
                 }
             });
+    }
+
+    private void exibirCardapioFiltrado() {
+        Toast.makeText(this, "Carregando cardápios...", Toast.LENGTH_SHORT).show();
+        
+        cardapiosViewModel.carregarCardapiosParaUsuario();
+        
+        cardapiosViewModel.getCardapiosVisiveis().observe(this, cardapios -> {
+            if (cardapios == null || cardapios.isEmpty()) {
+                Toast.makeText(this, "Nenhum cardápio disponível para seu turno", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            
+            StringBuilder resumo = new StringBuilder();
+            resumo.append("📋 CARDÁPIOS VISÍVEIS PARA SEU TURNO\n\n");
+            
+            for (CardapioTurno cardapio : cardapios) {
+                resumo.append("📅 ").append(cardapio.getData()).append("\n");
+                resumo.append("🍽️ Turno: ").append(cardapio.getTurno()).append("\n");
+                resumo.append("🥘 Prato: ").append(cardapio.getPratoPrincipal()).append("\n");
+                resumo.append("---\n");
+            }
+            
+            Toast.makeText(this, resumo.toString(), Toast.LENGTH_LONG).show();
+        });
+        
+        cardapiosViewModel.getDescricaoRegras().observe(this, descricao -> {
+            if (descricao != null) {
+                Toast.makeText(this, descricao, Toast.LENGTH_LONG).show();
+            }
+        });
+        
+        cardapiosViewModel.getErro().observe(this, erro -> {
+            if (erro != null) {
+                Toast.makeText(this, "Erro: " + erro, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private int dpToPx(int dp) {

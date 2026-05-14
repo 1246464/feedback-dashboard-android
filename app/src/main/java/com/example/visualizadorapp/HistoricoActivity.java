@@ -40,7 +40,7 @@ public class HistoricoActivity extends AppCompatActivity implements CardapioAdap
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_historico);
 
-        // Inicializar ViewModel
+        // CardapioViewModel é um AndroidViewModel, o provider padrão resolve as dependências automaticamente
         viewModel = new ViewModelProvider(this).get(CardapioViewModel.class);
 
         // Inicializar componentes
@@ -173,7 +173,7 @@ public class HistoricoActivity extends AppCompatActivity implements CardapioAdap
 
     @Override
     public void onCardapioClick(Cardapio cardapio) {
-        // Abrir detalhes do cardápio (pode ser implementado depois)
+        // Abrir detalhes do cardápio
         Toast.makeText(this, "Cardápio de " + cardapio.getData(), Toast.LENGTH_SHORT).show();
     }
 

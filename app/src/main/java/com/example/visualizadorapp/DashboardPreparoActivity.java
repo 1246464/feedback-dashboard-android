@@ -6,11 +6,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.visualizadorapp.model.CardapioTurno;
+import com.example.visualizadorapp.repository.CardapioTurnoRepository;
+import com.example.visualizadorapp.repository.FuncionarioRepository;
+import com.example.visualizadorapp.viewmodel.CardapiosViewModel;
 import com.example.visualizadorapp.viewmodel.GestaoPreparoViewModel;
 import com.example.visualizadorapp.viewmodel.IngredienteViewModel;
 import com.example.visualizadorapp.viewmodel.MudancaCardapioViewModel;
@@ -27,6 +32,7 @@ public class DashboardPreparoActivity extends AppCompatActivity {
     private IngredienteViewModel ingredienteViewModel;
     private PassagemTurnoViewModel passagemTurnoViewModel;
     private MudancaCardapioViewModel mudancaCardapioViewModel;
+    private CardapiosViewModel cardapiosViewModel;
     
     // Cards
     private CardView cardTarefas, cardIngredientes, cardPassagens, cardMudancas;
@@ -39,7 +45,7 @@ public class DashboardPreparoActivity extends AppCompatActivity {
     private TextView txtDataAtual;
     
     // Botões de ação
-    private Button btnIrTarefas, btnIrIngredientes, btnIrPassagens, btnIrMudancas;
+    private Button btnIrTarefas, btnIrIngredientes, btnIrPassagens, btnIrMudancas, btnVerCardapio;
     private Button btnVoltar;
     
     private String dataHoje;
@@ -97,6 +103,14 @@ public class DashboardPreparoActivity extends AppCompatActivity {
         ingredienteViewModel = new ViewModelProvider(this).get(IngredienteViewModel.class);
         passagemTurnoViewModel = new ViewModelProvider(this).get(PassagemTurnoViewModel.class);
         mudancaCardapioViewModel = new ViewModelProvider(this).get(MudancaCardapioViewModel.class);
+        
+        // Inicializar CardapiosViewModel
+        FuncionarioRepository funcionarioRepository = new FuncionarioRepository(getApplication());
+        CardapioTurnoRepository cardapioRepository = new CardapioTurnoRepository(getApplication());
+        
+        cardapiosViewModel = new ViewModelProvider(this, new CardapiosViewModelFactory(
+                funcionarioRepository, cardapioRepository))
+                .get(CardapiosViewModel.class);
     }
     
     private void configurarListeners() {
@@ -217,6 +231,43 @@ public class DashboardPreparoActivity extends AppCompatActivity {
                 } else {
                     txtMudancasHoje.setTextColor(getResources().getColor(android.R.color.darker_gray));
                 }
+            }
+        });
+    }
+
+    private void exibirCardapioFiltrado() {
+        Toast.makeText(this, "Carregando cardápios...", Toast.LENGTH_SHORT).show();
+        
+        cardapiosViewModel.carregarCardapiosParaUsuario();
+        
+        cardapiosViewModel.getCardapiosVisiveis().observe(this, cardapios -> {
+            if (cardapios == null || cardapios.isEmpty()) {
+                Toast.makeText(this, "Nenhum cardápio disponível para seu turno", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            
+            StringBuilder resumo = new StringBuilder();
+            resumo.append("📋 CARDÁPIOS VISÍVEIS PARA SEU TURNO\n\n");
+            
+            for (CardapioTurno cardapio : cardapios) {
+                resumo.append("📅 ").append(cardapio.getData()).append("\n");
+                resumo.append("🍽️ Turno: ").append(cardapio.getTurno()).append("\n");
+                resumo.append("🥘 Prato: ").append(cardapio.getPratoPrincipal()).append("\n");
+                resumo.append("---\n");
+            }
+            
+            Toast.makeText(this, resumo.toString(), Toast.LENGTH_LONG).show();
+        });
+        
+        cardapiosViewModel.getDescricaoRegras().observe(this, descricao -> {
+            if (descricao != null) {
+                Toast.makeText(this, descricao, Toast.LENGTH_LONG).show();
+            }
+        });
+        
+        cardapiosViewModel.getErro().observe(this, erro -> {
+            if (erro != null) {
+                Toast.makeText(this, "Erro: " + erro, Toast.LENGTH_SHORT).show();
             }
         });
     }

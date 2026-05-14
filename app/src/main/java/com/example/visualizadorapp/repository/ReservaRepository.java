@@ -48,37 +48,81 @@ public class ReservaRepository {
     // Insert/Update/Delete operations
     public void insert(Reserva reserva, OnSuccessListener listener) {
         AppDatabase.databaseWriteExecutor.execute(() -> {
-            long id = reservaDao.insert(reserva);
-            reserva.setId((int) id);
-            // Sync to Firebase
-            firebaseRef.child(String.valueOf(id)).setValue(reserva)
-                    .addOnSuccessListener(aVoid -> {
-                        if (listener != null) listener.onSuccess();
-                    });
+            try {
+                // 1. Salva no banco local (Room) primeiro
+                long id = reservaDao.insert(reserva);
+                reserva.setId((int) id);
+
+                // 2. Salva no Firebase usando o caminho correto: reservas/DATA/ID
+                // O "reserva.getData()" deve retornar algo como "2026-05-08"
+                if (reserva.getData() != null) {
+                    firebaseRef.child(reserva.getData())
+                            .child(String.valueOf(id))
+                            .setValue(reserva)
+                            .addOnSuccessListener(aVoid -> {
+                                if (listener != null) listener.onSuccess();
+                            })
+                            .addOnFailureListener(e -> {
+                                android.util.Log.e("FirebaseError", "Erro ao sincronizar reserva: " + e.getMessage());
+                            });
+                } else {
+                    android.util.Log.e("ReservaRepository", "Data da reserva é nula");
+                    if (listener != null) listener.onSuccess();
+                }
+            } catch (Exception e) {
+                android.util.Log.e("ReservaRepository", "Erro ao inserir reserva: " + e.getMessage(), e);
+            }
         });
     }
     
     public void update(Reserva reserva) {
         AppDatabase.databaseWriteExecutor.execute(() -> {
-            reservaDao.update(reserva);
-            // Sync to Firebase
-            firebaseRef.child(String.valueOf(reserva.getId())).setValue(reserva);
+            try {
+                reservaDao.update(reserva);
+                // Sync to Firebase com caminho correto
+                if (reserva.getData() != null) {
+                    firebaseRef.child(reserva.getData())
+                            .child(String.valueOf(reserva.getId()))
+                            .setValue(reserva)
+                            .addOnFailureListener(e -> {
+                                android.util.Log.e("FirebaseError", "Erro ao atualizar reserva: " + e.getMessage());
+                            });
+                }
+            } catch (Exception e) {
+                android.util.Log.e("ReservaRepository", "Erro ao atualizar reserva: " + e.getMessage(), e);
+            }
         });
     }
     
     public void delete(Reserva reserva) {
         AppDatabase.databaseWriteExecutor.execute(() -> {
-            reservaDao.delete(reserva);
-            // Delete from Firebase
-            firebaseRef.child(String.valueOf(reserva.getId())).removeValue();
+            try {
+                reservaDao.delete(reserva);
+                // Delete from Firebase com caminho correto
+                if (reserva.getData() != null) {
+                    firebaseRef.child(reserva.getData())
+                            .child(String.valueOf(reserva.getId()))
+                            .removeValue()
+                            .addOnFailureListener(e -> {
+                                android.util.Log.e("FirebaseError", "Erro ao deletar reserva: " + e.getMessage());
+                            });
+                }
+            } catch (Exception e) {
+                android.util.Log.e("ReservaRepository", "Erro ao deletar reserva: " + e.getMessage(), e);
+            }
         });
     }
     
     public void updateStatus(int id, String status) {
         AppDatabase.databaseWriteExecutor.execute(() -> {
-            reservaDao.updateStatus(id, status);
-            // Sync to Firebase
-            firebaseRef.child(String.valueOf(id)).child("statusReserva").setValue(status);
+            try {
+                reservaDao.updateStatus(id, status);
+                // Nota: Este método não tem acesso à data. Será necessário passar a data como parâmetro
+                // Por enquanto, apenas atualiza no banco local
+                android.util.Log.d("ReservaRepository", "Status atualizado localmente para ID: " + id);
+            } catch (Exception e) {
+                android.util.Log.e("ReservaRepository", "Erro ao atualizar status: " + e.getMessage(), e);
+            }
         });
     }
     
@@ -88,18 +132,35 @@ public class ReservaRepository {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 AppDatabase.databaseWriteExecutor.execute(() -> {
-                    for (DataSnapshot child : snapshot.getChildren()) {
-                        Reserva reserva = child.getValue(Reserva.class);
-                        if (reserva != null) {
-                            reservaDao.insert(reserva);
+                    try {
+                        for (DataSnapshot child : snapshot.getChildren()) {
+                            try {
+                                Reserva reserva = child.getValue(Reserva.class);
+                                // Validar dados obrigatórios antes de inserir
+                                if (reserva != null && reserva.getUserId() != null && 
+                                    reserva.getData() != null) {
+                                    reservaDao.insert(reserva);
+                                } else {
+                                    android.util.Log.w("ReservaRepository", 
+                                        "Ignorando reserva inválida do Firebase: " + child.getKey());
+                                }
+                            } catch (Exception e) {
+                                android.util.Log.e("ReservaRepository", 
+                                    "Erro ao processar reserva do Firebase: " + e.getMessage(), e);
+                                // Continua processando as outras
+                            }
                         }
+                    } catch (Exception e) {
+                        android.util.Log.e("ReservaRepository", 
+                            "Erro geral ao sincronizar do Firebase: " + e.getMessage(), e);
                     }
                 });
             }
             
             @Override
             public void onCancelled(DatabaseError error) {
-                // Handle error
+                android.util.Log.e("ReservaRepository", 
+                    "Erro ao sincronizar Firebase: " + error.getMessage());
             }
         });
     }

@@ -147,6 +147,7 @@ public class CardapioSemanalActivity extends AppCompatActivity {
         btnSalvarSemana.setText("Salvando...");
         
         int diasSalvos = 0;
+        StringBuilder cardapiosNovos = new StringBuilder();
         
         for (int i = 0; i < 7; i++) {
             String principal = edtPrincipal[i].getText().toString().trim();
@@ -168,16 +169,29 @@ public class CardapioSemanalActivity extends AppCompatActivity {
                 
                 database.child("cardapios").child(datasProximos7Dias[i]).setValue(cardapio);
                 diasSalvos++;
+                
+                // Registrar dia com novo cardápio
+                if (cardapiosNovos.length() > 0) {
+                    cardapiosNovos.append(", ");
+                }
+                cardapiosNovos.append(nomeDias[i]);
             }
         }
         
         final int totalSalvos = diasSalvos;
+        final String diasCardapio = cardapiosNovos.toString();
         
         // Aguardar um pouco para dar tempo de salvar
         containerSemanal.postDelayed(() -> {
             btnSalvarSemana.setEnabled(true);
             btnSalvarSemana.setText("💾 Salvar Cardápios da Semana");
             Toast.makeText(this, "✓ " + totalSalvos + " cardápio(s) salvos com sucesso!", Toast.LENGTH_SHORT).show();
+            
+            // Enviar notificação para todos os funcionários sobre novo cardápio
+            if (totalSalvos > 0) {
+                NotificationHelper.notificarNovoCardapio(CardapioSemanalActivity.this,
+                    "Novos cardápios disponíveis: " + diasCardapio);
+            }
         }, 1000);
     }
     

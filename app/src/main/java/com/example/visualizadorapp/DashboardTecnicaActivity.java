@@ -5,11 +5,17 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
+import com.example.visualizadorapp.model.CardapioTurno;
 import com.example.visualizadorapp.model.Cargo;
+import com.example.visualizadorapp.repository.CardapioTurnoRepository;
+import com.example.visualizadorapp.repository.FuncionarioRepository;
+import com.example.visualizadorapp.viewmodel.CardapiosViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -29,6 +35,7 @@ public class DashboardTecnicaActivity extends AppCompatActivity {
     private TextView txtBoasVindas, txtPlantao;
     private LinearLayout containerAcoes;
     private Button btnSair, btnVoltar;
+    private CardapiosViewModel cardapiosViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +46,7 @@ public class DashboardTecnicaActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance("https://insights-cardapio-default-rtdb.firebaseio.com/").getReference();
 
         inicializarComponentes();
+        inicializarViewModel();
         carregarDadosUsuario();
     }
 
@@ -60,67 +68,71 @@ public class DashboardTecnicaActivity extends AppCompatActivity {
         configurarBotoes();
     }
 
+    private void inicializarViewModel() {
+        FuncionarioRepository funcionarioRepository = new FuncionarioRepository(getApplication());
+        CardapioTurnoRepository cardapioRepository = new CardapioTurnoRepository(getApplication());
+        
+        cardapiosViewModel = new ViewModelProvider(this, new CardapiosViewModelFactory(
+                funcionarioRepository, cardapioRepository))
+                .get(CardapiosViewModel.class);
+    }
+
     private void configurarBotoes() {
         // Ver Cardápio do Dia
-        Button btnCardapio = new Button(this);
-        btnCardapio.setText("📋 Ver Cardápio do Dia");
-        btnCardapio.setBackgroundTintList(getColorStateList(android.R.color.holo_blue_dark));
-        btnCardapio.setTextColor(getColor(android.R.color.white));
-        btnCardapio.setOnClickListener(v -> startActivity(new Intent(this, MainActivity.class)));
-        containerAcoes.addView(btnCardapio);
+        adicionarBotao("📋 Ver Cardápio do Dia", android.R.color.holo_blue_dark, () -> exibirCardapioFiltrado());
 
         // Gestão de Pré-Preparo (Tarefas)
-        Button btnPrePreparo = new Button(this);
-        btnPrePreparo.setText("✅ Gestão de Pré-Preparo");
-        btnPrePreparo.setBackgroundTintList(getColorStateList(android.R.color.holo_green_dark));
-        btnPrePreparo.setTextColor(getColor(android.R.color.white));
-        btnPrePreparo.setOnClickListener(v -> startActivity(new Intent(this, GestaoPreparoActivity.class)));
-        containerAcoes.addView(btnPrePreparo);
+        adicionarBotao("✅ Gestão de Pré-Preparo", android.R.color.holo_green_dark, GestaoPreparoActivity.class);
 
         // Passagem de Turno
-        Button btnPassagem = new Button(this);
-        btnPassagem.setText("📝 Passagem de Turno");
-        btnPassagem.setBackgroundTintList(getColorStateList(android.R.color.holo_purple));
-        btnPassagem.setTextColor(getColor(android.R.color.white));
-        btnPassagem.setOnClickListener(v -> startActivity(new Intent(this, PassagemTurnoActivity.class)));
-        containerAcoes.addView(btnPassagem);
+        adicionarBotao("📝 Passagem de Turno", android.R.color.holo_purple, PassagemTurnoActivity.class);
 
         // Ingredientes
-        Button btnIngredientes = new Button(this);
-        btnIngredientes.setText("📦 Gestão de Ingredientes");
-        btnIngredientes.setBackgroundTintList(getColorStateList(android.R.color.holo_orange_dark));
-        btnIngredientes.setTextColor(getColor(android.R.color.white));
-        btnIngredientes.setOnClickListener(v -> startActivity(new Intent(this, GestaoIngredientesActivity.class)));
-        containerAcoes.addView(btnIngredientes);
+        adicionarBotao("📦 Gestão de Ingredientes", android.R.color.holo_orange_dark, GestaoIngredientesActivity.class);
 
         // Dashboard de Pré-Preparo
-        Button btnDashboard = new Button(this);
-        btnDashboard.setText("📊 Dashboard de Pré-Preparo");
-        btnDashboard.setBackgroundTintList(getColorStateList(android.R.color.holo_blue_light));
-        btnDashboard.setTextColor(getColor(android.R.color.white));
-        btnDashboard.setOnClickListener(v -> startActivity(new Intent(this, DashboardPreparoActivity.class)));
-        containerAcoes.addView(btnDashboard);
+        adicionarBotao("📊 Dashboard de Pré-Preparo", android.R.color.holo_blue_light, DashboardPreparoActivity.class);
 
         // Histórico de Mudanças
-        Button btnHistorico = new Button(this);
-        btnHistorico.setText("📜 Histórico de Mudanças");
-        btnHistorico.setBackgroundTintList(getColorStateList(android.R.color.darker_gray));
-        btnHistorico.setTextColor(getColor(android.R.color.white));
-        btnHistorico.setOnClickListener(v -> startActivity(new Intent(this, HistoricoMudancasActivity.class)));
-        containerAcoes.addView(btnHistorico);
+        adicionarBotao("📜 Histórico de Mudanças", android.R.color.darker_gray, HistoricoMudancasActivity.class);
+    }
 
-        // Aplicar estilo aos botões
-        for (int i = 0; i < containerAcoes.getChildCount(); i++) {
-            Button btn = (Button) containerAcoes.getChildAt(i);
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                dpToPx(60)
-            );
-            params.setMargins(0, 0, 0, dpToPx(12));
-            btn.setLayoutParams(params);
-            btn.setTextSize(16);
-            btn.setAllCaps(false);
-        }
+    private void adicionarBotao(String texto, int cor, Class<?> activityClass) {
+        Button btn = new Button(this);
+        btn.setText(texto);
+        btn.setBackgroundTintList(getColorStateList(cor));
+        btn.setTextColor(getColor(android.R.color.white));
+        btn.setOnClickListener(v -> startActivity(new Intent(this, activityClass)));
+        
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            dpToPx(60)
+        );
+        params.setMargins(0, 0, 0, dpToPx(12));
+        btn.setLayoutParams(params);
+        btn.setTextSize(16);
+        btn.setAllCaps(false);
+        
+        containerAcoes.addView(btn);
+    }
+
+    private void adicionarBotao(String texto, int cor, Runnable runnable) {
+        Button btn = new Button(this);
+        btn.setText(texto);
+        btn.setBackgroundTintList(getColorStateList(cor));
+        btn.setTextColor(getColor(android.R.color.white));
+        btn.setOnClickListener(v -> runnable.run());
+        
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            dpToPx(60)
+        );
+        params.setMargins(0, 0, 0, dpToPx(12));
+        btn.setLayoutParams(params);
+        btn.setTextSize(16);
+        btn.setAllCaps(false);
+        
+        containerAcoes.addView(btn);
     }
 
     private void carregarDadosUsuario() {
@@ -150,6 +162,43 @@ public class DashboardTecnicaActivity extends AppCompatActivity {
                     // Ignorar
                 }
             });
+    }
+
+    private void exibirCardapioFiltrado() {
+        Toast.makeText(this, "Carregando cardápios...", Toast.LENGTH_SHORT).show();
+        
+        cardapiosViewModel.carregarCardapiosParaUsuario();
+        
+        cardapiosViewModel.getCardapiosVisiveis().observe(this, cardapios -> {
+            if (cardapios == null || cardapios.isEmpty()) {
+                Toast.makeText(this, "Nenhum cardápio disponível para seu turno", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            
+            StringBuilder resumo = new StringBuilder();
+            resumo.append("📋 CARDÁPIOS VISÍVEIS PARA SEU TURNO\n\n");
+            
+            for (CardapioTurno cardapio : cardapios) {
+                resumo.append("📅 ").append(cardapio.getData()).append("\n");
+                resumo.append("🍽️ Turno: ").append(cardapio.getTurno()).append("\n");
+                resumo.append("🥘 Prato: ").append(cardapio.getPratoPrincipal()).append("\n");
+                resumo.append("---\n");
+            }
+            
+            Toast.makeText(this, resumo.toString(), Toast.LENGTH_LONG).show();
+        });
+        
+        cardapiosViewModel.getDescricaoRegras().observe(this, descricao -> {
+            if (descricao != null) {
+                Toast.makeText(this, descricao, Toast.LENGTH_LONG).show();
+            }
+        });
+        
+        cardapiosViewModel.getErro().observe(this, erro -> {
+            if (erro != null) {
+                Toast.makeText(this, "Erro: " + erro, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private int dpToPx(int dp) {

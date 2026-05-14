@@ -19,7 +19,7 @@ public class CardapioRepository {
         AppDatabase database = AppDatabase.getDatabase(application);
         cardapioDao = database.cardapioDao();
         firebaseRef = FirebaseDatabase.getInstance("https://insights-cardapio-default-rtdb.firebaseio.com/")
-                .getReference("cardapio");
+                .getReference("cardapios");
         executorService = Executors.newSingleThreadExecutor();
     }
     
@@ -30,8 +30,49 @@ public class CardapioRepository {
     }
     
     public LiveData<Cardapio> getCardapioByData(String data) {
-        syncCardapioFromFirebase(data);
+        // Sincronizar do Firebase com timeout
+        syncCardapioFromFirebaseWithTimeout(data, 3000); // 3 segundos de timeout
         return cardapioDao.getCardapioByData(data);
+    }
+    
+    /**
+     * Sincroniza um cardápio do Firebase com timeout.
+     * Se não encontrar em 3s, continua mesmo assim (pode sincronizar depois).
+     */
+    private void syncCardapioFromFirebaseWithTimeout(String data, long timeoutMs) {
+        AppDatabase.databaseWriteExecutor.execute(() -> {
+            long startTime = System.currentTimeMillis();
+            
+            firebaseRef.child(data).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        try {
+                            Cardapio cardapio = snapshot.getValue(Cardapio.class);
+                            if (cardapio != null) {
+                                cardapio.setData(data);
+                                cardapioDao.insert(cardapio);
+                                android.util.Log.d("CardapioRepository", 
+                                    "Cardápio " + data + " sincronizado com sucesso em " + 
+                                    (System.currentTimeMillis() - startTime) + "ms");
+                            }
+                        } catch (Exception e) {
+                            android.util.Log.e("CardapioRepository", 
+                                "Erro ao processar cardápio " + data + ": " + e.getMessage(), e);
+                        }
+                    } else {
+                        android.util.Log.d("CardapioRepository", 
+                            "Nenhum cardápio encontrado no Firebase para: " + data);
+                    }
+                }
+                
+                @Override
+                public void onCancelled(DatabaseError error) {
+                    android.util.Log.e("CardapioRepository", 
+                        "Erro ao sincronizar cardápio " + data + ": " + error.getMessage());
+                }
+            });
+        });
     }
     
     public LiveData<List<Cardapio>> getFavoritos() {

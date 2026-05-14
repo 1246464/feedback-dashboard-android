@@ -4,11 +4,16 @@ public class Usuario {
     private String uid;
     private String nome;
     private String email;
+    private String cpf; // CPF do funcionário (11 dígitos, sem formatação)
+    private String telefone; // Telefone para contato (11 dígitos com DDD)
     private String cargo; // Enum Cargo como String
     private String plantao; // "A", "B", ou null
     private String horario; // "10-22", "19-07", "5x2", ou null
+    private String turno; // "MANHA", "TARDE", "NOITE", "5X2"
     private String setor;
     private String tipo; // backward compatibility
+    private boolean validado; // Se o funcionário foi validado contra a base de dados
+    private long dataRegistro; // Data de registro no sistema
 
     public Usuario() {
         // Construtor vazio necessário para Firebase
@@ -84,6 +89,46 @@ public class Usuario {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public String getTurno() {
+        return turno;
+    }
+
+    public void setTurno(String turno) {
+        this.turno = turno;
+    }
+
+    public boolean isValidado() {
+        return validado;
+    }
+
+    public void setValidado(boolean validado) {
+        this.validado = validado;
+    }
+
+    public long getDataRegistro() {
+        return dataRegistro;
+    }
+
+    public void setDataRegistro(long dataRegistro) {
+        this.dataRegistro = dataRegistro;
     }
 
     // Métodos auxiliares

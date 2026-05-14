@@ -20,6 +20,7 @@ public class Reserva implements Serializable {
     private String emailUsuario;
     private String escolhaPrato; // A escolha do usuário (ovo, peixe, etc)
     private String setor; // Setor do usuário
+    private String turno; // "ALMOÇO", "JANTA" - Identifica qual turno é a reserva
     private long timestampReserva;
     private String statusReserva; // "ATIVA", "CANCELADA", "UTILIZADA"
     private String observacao;
@@ -109,5 +110,13 @@ public class Reserva implements Serializable {
 
     public void setSetor(String setor) {
         this.setor = setor;
+    }
+
+    public String getTurno() {
+        return turno;
+    }
+
+    public void setTurno(String turno) {
+        this.turno = turno;
     }
 }

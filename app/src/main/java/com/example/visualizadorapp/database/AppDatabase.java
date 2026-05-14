@@ -5,6 +5,8 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import com.example.visualizadorapp.model.Cardapio;
+import com.example.visualizadorapp.model.CardapioTurno;
+import com.example.visualizadorapp.model.Funcionario;
 import com.example.visualizadorapp.model.Reserva;
 import com.example.visualizadorapp.model.Comentario;
 import com.example.visualizadorapp.model.Ingrediente;
@@ -15,17 +17,21 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @Database(entities = {
-    Cardapio.class, 
+    Cardapio.class,
+    CardapioTurno.class,
+    Funcionario.class,
     Reserva.class, 
     Comentario.class,
     Ingrediente.class,
     TarefaPreparo.class,
     PassagemTurno.class,
     MudancaCardapio.class
-}, version = 3, exportSchema = false)
+}, version = 6, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     
     public abstract CardapioDao cardapioDao();
+    public abstract CardapioTurnoDao cardapioTurnoDao();
+    public abstract FuncionarioDao funcionarioDao();
     public abstract ReservaDao reservaDao();
     public abstract ComentarioDao comentarioDao();
     public abstract IngredienteDao ingredienteDao();
@@ -52,5 +58,9 @@ public abstract class AppDatabase extends RoomDatabase {
             }
         }
         return INSTANCE;
+    }
+
+    public static AppDatabase getInstance(Context context) {
+        return getDatabase(context);
     }
 }

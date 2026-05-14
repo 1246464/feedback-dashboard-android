@@ -82,7 +82,7 @@
             android:id="@+id/edtSetorEditar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Ex: Cozinha Central"
+            android:hint="Ex: SAMU, Hemade, Maternidade"
             android:inputType="text"
             android:padding="12dp" />
 

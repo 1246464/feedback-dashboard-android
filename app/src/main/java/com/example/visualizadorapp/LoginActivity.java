@@ -9,6 +9,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.DataSnapshot;
@@ -27,6 +28,15 @@ public class LoginActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
 
+        // ✅ VERIFICAR SE JÁ ESTÁ LOGADO
+        FirebaseUser usuarioAtual = auth.getCurrentUser();
+        if (usuarioAtual != null) {
+            // Usuário já logado, ir direto para RedirecionadorActivity
+            startActivity(new Intent(this, RedirecionadorActivity.class));
+            finish();
+            return;
+        }
+
         edtEmail = findViewById(R.id.edtEmail);
         edtSenha = findViewById(R.id.edtSenha);
         btnLogin = findViewById(R.id.btnLogin);
@@ -38,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
 
         // BOTÃO CRIAR CONTA: Abre a tela de cadastro que criamos
         btnCriarConta.setOnClickListener(v -> {
-            Intent intent = new Intent(LoginActivity.this, CadastroActivity.class);
+            Intent intent = new Intent(LoginActivity.this, CadastroMelhoradoActivity.class);
             startActivity(intent);
         });
 
