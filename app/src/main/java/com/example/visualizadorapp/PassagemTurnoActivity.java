@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.visualizadorapp.adapter.PassagemTurnoAdapter;
 import com.example.visualizadorapp.model.PassagemTurno;
+import com.example.visualizadorapp.util.NotificationHelper;
 import com.example.visualizadorapp.viewmodel.PassagemTurnoViewModel;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -189,6 +190,9 @@ public class PassagemTurnoActivity extends AppCompatActivity {
                 
                 viewModel.inserirPassagem(novaPassagem);
                 Toast.makeText(this, "Passagem enviada com sucesso!", Toast.LENGTH_SHORT).show();
+                NotificationHelper.notificarPassagemTurno(this, 
+                    novaPassagem.getTurnoDestino(), 
+                    novaPassagem.getMensagem());
             })
             .setNegativeButton("Cancelar", null)
             .create()

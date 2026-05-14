@@ -261,12 +261,25 @@ public class ReservaActivity extends AppCompatActivity {
     }
 
     private void enviarNotificacaoReservaSegura(String nome, String turno, String prato) {
+        // Notificar usuário que fez a reserva
+        NotificationHelper.notificarNovaReserva(ReservaActivity.this, 
+            "Você (confirmação)", turno, "✅ Sua reserva foi confirmada!");
+        
+        // Notificar equipe de cozinha/copa
         database.child("usuarios").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot userSnapshot : snapshot.getChildren()) {
                     String cargo = userSnapshot.child("cargo").getValue(String.class);
-                    if ("COZINHEIRO".equals(cargo) || "COPEIRO".equals(cargo)) {
+                    
+                    // Notificar se cargo contém "COZINHA", "COPEI", "MEIO_OFICIAL" ou "AUXILIAR"
+                    if (cargo != null && (
+                        cargo.contains("COZINHA") || 
+                        cargo.contains("COPEI") || 
+                        cargo.contains("MEIO_OFICIAL") ||
+                        cargo.contains("AUXILIAR") ||
+                        cargo.equals("LIDER_COZINHA"))) {
+                        
                         NotificationHelper.notificarNovaReserva(ReservaActivity.this, nome, turno, prato);
                     }
                 }

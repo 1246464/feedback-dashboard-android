@@ -15,6 +15,7 @@ import com.example.visualizadorapp.model.CardapioTurno;
 import com.example.visualizadorapp.model.Cargo;
 import com.example.visualizadorapp.repository.CardapioTurnoRepository;
 import com.example.visualizadorapp.repository.FuncionarioRepository;
+import com.example.visualizadorapp.util.NotificationHelper;
 import com.example.visualizadorapp.viewmodel.CardapiosViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -174,6 +175,10 @@ public class DashboardTecnicaActivity extends AppCompatActivity {
                 Toast.makeText(this, "Nenhum cardápio disponível para seu turno", Toast.LENGTH_SHORT).show();
                 return;
             }
+            
+            // Notificar que cardápio está disponível
+            NotificationHelper.notificarNovoCardapio(this, 
+                "✅ Cardápio disponível para seu horário e plantão!");
             
             StringBuilder resumo = new StringBuilder();
             resumo.append("📋 CARDÁPIOS VISÍVEIS PARA SEU TURNO\n\n");

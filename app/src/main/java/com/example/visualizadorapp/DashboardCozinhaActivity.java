@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.visualizadorapp.model.CardapioTurno;
 import com.example.visualizadorapp.repository.CardapioTurnoRepository;
 import com.example.visualizadorapp.repository.FuncionarioRepository;
+import com.example.visualizadorapp.util.NotificationHelper;
 import com.example.visualizadorapp.viewmodel.CardapiosViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -164,6 +165,10 @@ public class DashboardCozinhaActivity extends AppCompatActivity {
                 Toast.makeText(this, "Nenhum cardápio disponível para seu turno", Toast.LENGTH_SHORT).show();
                 return;
             }
+            
+            // Notificar que cardápio está disponível
+            NotificationHelper.notificarNovoCardapio(this, 
+                "✅ Cardápio disponível para seu horário e plantão!");
             
             // Exibir resumo dos cardápios
             StringBuilder resumo = new StringBuilder();

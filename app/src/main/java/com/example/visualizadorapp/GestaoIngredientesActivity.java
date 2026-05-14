@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.visualizadorapp.adapter.IngredienteAdapter;
 import com.example.visualizadorapp.model.Ingrediente;
+import com.example.visualizadorapp.util.NotificationHelper;
 import com.example.visualizadorapp.viewmodel.IngredienteViewModel;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -244,6 +245,7 @@ public class GestaoIngredientesActivity extends AppCompatActivity {
         ingrediente.setResponsavelVerificacao(getUsuarioAtual());
         viewModel.marcarComoFaltando(ingrediente);
         Toast.makeText(this, "⚠ Marcado como faltando", Toast.LENGTH_SHORT).show();
+        NotificationHelper.notificarIngredienteFaltando(this, ingrediente.getNome());
     }
     
     private void marcarComoParcial(Ingrediente ingrediente) {
