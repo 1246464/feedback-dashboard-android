@@ -161,12 +161,14 @@ public class DashboardCozinhaActivity extends AppCompatActivity {
         
         // Observar os cardápios visíveis
         cardapiosViewModel.getCardapiosVisiveis().observe(this, cardapios -> {
+            android.util.Log.d("DashboardCozinha", "CardapiosVisiveis observer chamado com " + (cardapios == null ? "null" : cardapios.size()) + " cardápios");
             if (cardapios == null || cardapios.isEmpty()) {
                 Toast.makeText(this, "Nenhum cardápio disponível para seu turno", Toast.LENGTH_SHORT).show();
                 return;
             }
             
             // Notificar que cardápio está disponível
+            android.util.Log.d("DashboardCozinha", "Chamando notificarNovoCardapio");
             NotificationHelper.notificarNovoCardapio(this, 
                 "✅ Cardápio disponível para seu horário e plantão!");
             

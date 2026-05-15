@@ -190,6 +190,7 @@ public class PassagemTurnoActivity extends AppCompatActivity {
                 
                 viewModel.inserirPassagem(novaPassagem);
                 Toast.makeText(this, "Passagem enviada com sucesso!", Toast.LENGTH_SHORT).show();
+                android.util.Log.d("PassagemTurno", "Enviando notificação para turno: " + novaPassagem.getTurnoDestino());
                 NotificationHelper.notificarPassagemTurno(this, 
                     novaPassagem.getTurnoDestino(), 
                     novaPassagem.getMensagem());

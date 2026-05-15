@@ -207,7 +207,7 @@ public class GestaoIngredientesActivity extends AppCompatActivity {
         edtQuantidade.setText(ingrediente.getQuantidade());
         edtObservacao.setText(ingrediente.getObservacao());
         
-        new AlertDialog.Builder(this)
+        new androidx.appcompat.app.AlertDialog.Builder(this)
             .setTitle("Editar Ingrediente")
             .setView(dialogView)
             .setPositiveButton("Salvar", (dialog, which) -> {
@@ -221,7 +221,7 @@ public class GestaoIngredientesActivity extends AppCompatActivity {
                 Toast.makeText(this, "✓ Ingrediente atualizado", Toast.LENGTH_SHORT).show();
             })
             .setNeutralButton("Excluir", (dialog, which) -> {
-                new AlertDialog.Builder(this)
+                new androidx.appcompat.app.AlertDialog.Builder(this)
                     .setTitle("Confirmar exclusão")
                     .setMessage("Deseja realmente excluir este ingrediente?")
                     .setPositiveButton("Sim", (d, w) -> {
@@ -242,10 +242,11 @@ public class GestaoIngredientesActivity extends AppCompatActivity {
     }
     
     private void marcarComoFaltando(Ingrediente ingrediente) {
+        android.util.Log.d("GestaoIngredientes", "marcarComoFaltando: " + ingrediente.getNomeIngrediente());
         ingrediente.setResponsavelVerificacao(getUsuarioAtual());
         viewModel.marcarComoFaltando(ingrediente);
         Toast.makeText(this, "⚠ Marcado como faltando", Toast.LENGTH_SHORT).show();
-        NotificationHelper.notificarIngredienteFaltando(this, ingrediente.getNome());
+        NotificationHelper.notificarIngredienteFaltando(this, ingrediente.getNomeIngrediente());
     }
     
     private void marcarComoParcial(Ingrediente ingrediente) {

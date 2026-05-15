@@ -5,6 +5,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 
 import androidx.core.app.NotificationCompat;
@@ -14,6 +15,7 @@ import com.example.visualizadorapp.GestaoIngredientesActivity;
 import com.example.visualizadorapp.MainActivity;
 import com.example.visualizadorapp.PassagemTurnoActivity;
 import com.example.visualizadorapp.R;
+import com.google.firebase.auth.FirebaseAuth;
 
 /**
  * Classe utilitária para gerenciar notificações do sistema de pré-preparo
@@ -27,6 +29,59 @@ public class NotificationHelper {
     private static final String CHANNEL_NAME_DEFAULT = "Notificações de Cardápio";
     private static final String CHANNEL_NAME_PREPARO = "Notificações de Pré-Preparo";
     private static final String CHANNEL_NAME_URGENTE = "Notificações Urgentes";
+    
+    /**
+     * Verifica se o usuário está logado
+     * @return true se um usuário está logado, false caso contrário
+     */
+    private static boolean usuarioEstaLogado() {
+        return FirebaseAuth.getInstance().getCurrentUser() != null;
+    }
+    
+    /**
+     * Salva o UID do usuário logado para rastrear mudanças de conta
+     */
+    public static void salvarUidUsuarioLogado(Context context) {
+        if (usuarioEstaLogado()) {
+            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            SharedPreferences prefs = context.getSharedPreferences("notification_prefs", Context.MODE_PRIVATE);
+            prefs.edit().putString("logged_user_uid", uid).apply();
+            android.util.Log.d("NotificationHelper", "UID salvo: " + uid);
+        }
+    }
+    
+    /**
+     * Obtém o UID do usuário que deve receber as notificações
+     */
+    private static String obterUidUsuarioAtual(Context context) {
+        if (usuarioEstaLogado()) {
+            return FirebaseAuth.getInstance().getCurrentUser().getUid();
+        }
+        return null;
+    }
+    
+    /**
+     * Envia notificação apenas se o usuário está logado
+     * Evita enviar notificações de outras contas
+     */
+    private static boolean validarNotificacao(Context context) {
+        if (!usuarioEstaLogado()) {
+            android.util.Log.d("NotificationHelper", "Notificação ignorada: nenhum usuário logado");
+            return false;
+        }
+        
+        // Verificar se o UID atual é o mesmo do último usuário que recebeu notificações
+        String uidAtual = obterUidUsuarioAtual(context);
+        SharedPreferences prefs = context.getSharedPreferences("notification_prefs", Context.MODE_PRIVATE);
+        String uidSalvo = prefs.getString("logged_user_uid", "");
+        
+        if (!uidAtual.equals(uidSalvo)) {
+            android.util.Log.d("NotificationHelper", "Mudança de conta detectada. Salvando novo UID.");
+            prefs.edit().putString("logged_user_uid", uidAtual).apply();
+        }
+        
+        return true;
+    }
     
     /**
      * Cria os canais de notificação necessários
@@ -75,6 +130,7 @@ public class NotificationHelper {
      * Envia notificação sobre mudança no cardápio
      */
     public static void notificarMudancaCardapio(Context context, String mensagem) {
+        if (!validarNotificacao(context)) return;
         Intent intent = new Intent(context, DashboardPreparoActivity.class);
         enviarNotificacao(context, 
             "⚠️ Mudança no Cardápio", 
@@ -88,6 +144,7 @@ public class NotificationHelper {
      * Envia notificação sobre tarefa pendente
      */
     public static void notificarTarefaPendente(Context context, String descricaoTarefa) {
+        if (!validarNotificacao(context)) return;
         Intent intent = new Intent(context, DashboardPreparoActivity.class);
         enviarNotificacao(context, 
             "✅ Tarefa Pendente", 
@@ -101,6 +158,7 @@ public class NotificationHelper {
      * Envia notificação sobre ingrediente faltando
      */
     public static void notificarIngredienteFaltando(Context context, String nomeIngrediente) {
+        if (!validarNotificacao(context)) return;
         Intent intent = new Intent(context, GestaoIngredientesActivity.class);
         enviarNotificacao(context, 
             "📦 Ingrediente Faltando", 
@@ -114,6 +172,7 @@ public class NotificationHelper {
      * Envia notificação sobre nova passagem de turno
      */
     public static void notificarPassagemTurno(Context context, String turno, String mensagem) {
+        if (!validarNotificacao(context)) return;
         Intent intent = new Intent(context, PassagemTurnoActivity.class);
         enviarNotificacao(context, 
             "💬 Passagem de Turno - " + turno, 
@@ -127,6 +186,7 @@ public class NotificationHelper {
      * Envia notificação sobre tarefas urgentes
      */
     public static void notificarTarefasUrgentes(Context context, int numTarefas) {
+        if (!validarNotificacao(context)) return;
         Intent intent = new Intent(context, DashboardPreparoActivity.class);
         enviarNotificacao(context, 
             "🚨 Tarefas Urgentes", 
@@ -140,6 +200,7 @@ public class NotificationHelper {
      * Envia notificação sobre tarefas geradas
      */
     public static void notificarTarefasGeradas(Context context, String titulo, String mensagem) {
+        if (!validarNotificacao(context)) return;
         Intent intent = new Intent(context, DashboardPreparoActivity.class);
         enviarNotificacao(context, 
             titulo, 
@@ -153,6 +214,8 @@ public class NotificationHelper {
      * Envia notificação sobre nova reserva (para cozinheiro/copeiro)
      */
     public static void notificarNovaReserva(Context context, String nomeUsuario, String turno, String prato) {
+        if (!validarNotificacao(context)) return;
+        android.util.Log.d("NotificationHelper", "notificarNovaReserva: " + nomeUsuario + " - " + prato);
         Intent intent = new Intent(context, MainActivity.class);
         enviarNotificacao(context, 
             "🍽️ Nova Reserva - " + turno, 
@@ -166,6 +229,8 @@ public class NotificationHelper {
      * Envia notificação sobre novo cardápio publicado (para todos os funcionários)
      */
     public static void notificarNovoCardapio(Context context, String mensagem) {
+        if (!validarNotificacao(context)) return;
+        android.util.Log.d("NotificationHelper", "notificarNovoCardapio chamado com mensagem: " + mensagem);
         Intent intent = new Intent(context, MainActivity.class);
         enviarNotificacao(context, 
             "📋 Novo Cardápio Disponível", 
@@ -185,6 +250,13 @@ public class NotificationHelper {
             Intent intent,
             String channelId,
             int prioridade) {
+        
+        android.util.Log.d("NotificationHelper", "enviarNotificacao: " + titulo + " | " + mensagem + " | Channel: " + channelId);
+        
+        if (context == null) {
+            android.util.Log.e("NotificationHelper", "Context é null em enviarNotificacao!");
+            return;
+        }
         
         if (intent == null) {
             intent = new Intent(context, MainActivity.class);
@@ -212,7 +284,14 @@ public class NotificationHelper {
             (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         
         if (notificationManager != null) {
-            notificationManager.notify((int) System.currentTimeMillis(), builder.build());
+            try {
+                notificationManager.notify((int) System.currentTimeMillis(), builder.build());
+                android.util.Log.d("NotificationHelper", "Notificação enviada com sucesso: " + titulo);
+            } catch (Exception e) {
+                android.util.Log.e("NotificationHelper", "Erro ao enviar notificação: " + e.getMessage(), e);
+            }
+        } else {
+            android.util.Log.e("NotificationHelper", "NotificationManager é null!");
         }
     }
     

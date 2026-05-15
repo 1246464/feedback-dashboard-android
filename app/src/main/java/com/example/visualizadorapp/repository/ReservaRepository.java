@@ -135,6 +135,14 @@ public class ReservaRepository {
                     try {
                         for (DataSnapshot child : snapshot.getChildren()) {
                             try {
+                                // Verificar se o valor é um ArrayList (dados malformados) e ignorar
+                                Object rawValue = child.getValue();
+                                if (rawValue instanceof java.util.ArrayList) {
+                                    android.util.Log.w("ReservaRepository", 
+                                        "Ignorando reserva com formato incorreto (ArrayList): " + child.getKey());
+                                    continue;
+                                }
+                                
                                 Reserva reserva = child.getValue(Reserva.class);
                                 // Validar dados obrigatórios antes de inserir
                                 if (reserva != null && reserva.getUserId() != null && 
@@ -145,14 +153,14 @@ public class ReservaRepository {
                                         "Ignorando reserva inválida do Firebase: " + child.getKey());
                                 }
                             } catch (Exception e) {
-                                android.util.Log.e("ReservaRepository", 
-                                    "Erro ao processar reserva do Firebase: " + e.getMessage(), e);
+                                android.util.Log.w("ReservaRepository", 
+                                    "Erro ao processar reserva do Firebase (continuando): " + e.getMessage());
                                 // Continua processando as outras
                             }
                         }
                     } catch (Exception e) {
                         android.util.Log.e("ReservaRepository", 
-                            "Erro geral ao sincronizar do Firebase: " + e.getMessage(), e);
+                            "Erro geral ao sincronizar do Firebase: " + e.getMessage());
                     }
                 });
             }

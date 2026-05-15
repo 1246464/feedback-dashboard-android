@@ -261,6 +261,7 @@ public class ReservaActivity extends AppCompatActivity {
     }
 
     private void enviarNotificacaoReservaSegura(String nome, String turno, String prato) {
+        android.util.Log.d("Reserva", "enviarNotificacaoReservaSegura: " + nome + " | " + turno + " | " + prato);
         // Notificar usuário que fez a reserva
         NotificationHelper.notificarNovaReserva(ReservaActivity.this, 
             "Você (confirmação)", turno, "✅ Sua reserva foi confirmada!");
